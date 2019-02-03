@@ -449,10 +449,53 @@ Establishing Relationships
 
     Composition: Ids
 
-        
+        Relación de colaboración: 
+            antes mencionadas, como:
+                OrderItem -> Order
+                AddressRepository -> Address
+                etc..
+
+        Composición:
+             Relación de composición entre Customer y Address.
+
+        Composición de relación entre Order y Customer.
+            Como Order tiene su propia dirección, no le interesan todos los datos del cliente, solo el id.
+                Por ende no es necesario cargar toda la clase Customer cada vez que se instancia un objeto Order.
+                Para esto solo se agrega una propiedad customerId en Order, idem para Address.
+                    - Minimiza el acoplamiento.
+
+            Simplmente se crea un int con CustomerId y ShippingAddressId
 
     Building the Single Purpose Classes
+
+        Crea OrderDisplay, para mostrar la información de la orden.
+        Crea un test para probar esto.
+
     Inheritance
+        
+        La herencia te permite crear una clase que adquiere o hereda a los miembros de otra clase para que pueda definir un tipo mas especifico, como un cliente comericial y hereda 
+            todo los miembros de la clase que esta arriba en su jerarquia.
+
+        A la clase padre o la primera en la jerarquia se le llama así o clase base, porque tiene la funcionalidad base que va a ser reutilizada.
+        Las clases hijas o derivadas, son las que heredan las funcionalidades de la clase base.
+
+        Cliente
+            Cliente Comercial
+            Cliente residencial
+            Cliente de Gobierno
+            etc..
+
+        Las clases hijas tienen una relación "es una" con la clase padre.
+
+        En C# solo se puede heredar de una clase.
+        Cadena de herencia:
+            Cliente
+                Cliente de Gobierno
+                    Cliente local
+
+        Cuando no hay mucha diferencia entre las clases especializadas y solo se quiere tener un registro donde se disting el tipo de clase, se pone una nueva propiedad y nada mas.
+            property int typeOfCustomer {get; set;}
+
     Summary
         Resumen de la sección.
 
@@ -460,13 +503,45 @@ Establishing Relationships
 Leveraging Reuse
 
     Introduction
+        En esta sección vamos a ver:
+            Diferentes tecnicas de reutilización.
+            Mirar la clase Object de .NET
+            Sobreescribir una funcionalidad de la clase base.
+            Polimorfismo.
+            Codificar una clase base.
+
+        - Extraer una funcionalidad comun y extraerla a una nueva clase o componente.
+        - Reusar la clase o componente. 
+
+        Reuzar:
+            1) Crear una vez, codigo reutilizables.
+            2) Probarlo, dejando pruebas automatizadas por si se agrega nueva funcionalidad al mismo.
+            3) Actualizar codigo y retestear.
+            4) Extender la funcionalidad del componente.
+
     Techniques for Leveraging Reuse
+        
+        Diferentes maneras de reuzar:
+            - Compartir comunes a través de la colaboración. (Clase Dirección x ej)
+            - Herencia. Donde se puede extrar codigo comun en una clase base y heredar de esa.
+            - Componentes encapsulados y reutilizarlos.
+            - Copiar y pegar codigo para reutilizarlo.( NO )
+         
     The .NET Object Class
+
+        Clase Object:
+            Cada clase que creamos, hereda por default de la clase objet.
+            x ej: 
+                metodo ToString() -> "System.Object"
+
     Overriding Base Class Functionality
+
+        
     Polymorphism
     Building a Base Class
     Summary
         Resumen de la sección.
+
 Building Reusable Components
 
     Introduction

@@ -1,0 +1,495 @@
+Introduction
+
+    Introduction
+        Es la base de:
+            Codigo limpio.
+            Defender el codigo.
+            Agile interactivo.
+            API
+            Patrones de diseño.
+            Domain Driven Desing
+            Microsoft Universal Windows apps.
+
+        Organizar el codigo en clases para apropiadas usando OOP.
+
+    Object != Class
+
+        Clase:
+            Es codigo.
+            
+            Tiene propiedades. Las prop son datos administrados por la clase.
+            Tiene funciones (metodos). Define las acciones o comportamientos gestionados por la clase. 
+            Ambos forman "los miembros" de la clase.
+
+            La clase, proporcionar la definición para un tipo particular de objeto.
+
+            Una clase es como un molde, a partir del molde se pueden crear multiples objetos iguales pero con diferentes, colores, gustos etc.
+            La clase tiene la definición del tipo de objeto.
+
+        Objeto:
+            Es una instancia de una clase. 
+            Se crea usando la palabra New. 
+            
+            La variable donde se guarda esa instancia, hace referencia al objeto creado.
+                A traves de la variable, se puede utilizar las propiedades y metodos creadas en la clase.
+                Esta variable guarda el estado del objeto.
+                Los objetos existen solo mientras la aplicación este activa. 
+                La información de los objetos perduran solo si fueron guardados en una base de datos.
+        
+        Objeto de negocio:
+            A menudo se refiere a una clase.
+
+        Entity:
+            Cualquier cosa del mundo real que sea suficientemente significativa como para ser representada como una clase.
+
+        Entity: customer
+        Class: Customer
+                - lastNumber
+                - firstNumber
+                - go on an adventure.
+
+        Object: noe, gabu
+
+    What is Object-Oriented Programming?
+        
+        Es un enfoque para diseñar y construir aplicaciones que sean:
+            - Flexibles
+            - Naturales
+            - Bien hechas
+            - Testeables
+
+            concentrandose en objetos que interactuen limpiamente unos con otros.
+
+        Para crear una aplicación orientada  objetos debe:
+            1) Identificar las clases de los requerimientos.
+            2) Analizar las clases y separar las responsabilidades. "Separating Responsabilities"
+            3) Establecer las relaciones entre clases.
+            4) Reuzar. Separar codigo reusable en otras clases.
+            
+    Course Outline
+        Prerequisitos para hacer el curso:
+            Tener conocimientos basicos de c#
+            Tener algo de experiencia con Visual Studio.
+        
+        Repasa lo que vimos en el cap anterior.
+
+
+Identifying Classes From Requirements
+
+    Introduction
+        Identificando clases de requerimientos, pedidos de cambios, etc.
+
+        Vamos desde los requerimientos hasta las clases, pasando por:
+            Analizar el problema del negocio.
+            Comenzar con sustantivos para identificar clases.
+            Definir los miembros apropiados.
+
+        Los 4 pilares de la programación orientadad a objetos.
+            Abstraccción, encapsulamiento (pusó solo estos dos), herencia, polimorfismo.
+
+    Analyze the Business Problem
+
+        Analizar un requerimiento y representar las clases, propiedades y metodos:
+
+        "
+        
+        Gracias por reunirse con nosotros hoy. Como estoy seguro de que todos han escuchado, recientemente nos hemos fusionado con Consolidated Systems. 
+        Nuestro sistema de administración de clientes simplemente no está configurado para manejar los clientes y los pedidos que tenemos ahora, 
+        por lo que nos gustaría que usted construya un nuevo sistema para nosotros. Lo llamamos el Sistema de Gestión de Clientes de Acme . 
+        El nuevo sistema debe administrar los tipos de clientes comerciales, residenciales, gubernamentales y educativos. 
+        Debemos rastree mínimamente el nombre, apellido, nombre, dirección de correo electrónico y direcciones de trabajo y hogar del cliente . 
+        Debe administrar tanto nuestros productos actuales como los productos que nos proporciona Consolidated Solutions. 
+        Debemos rastrear mínimamente el nombre del producto, la descripción y el precio actual. Y acepte pedidos de clientes en línea oa través de nuestro centro de atención telefónica. 
+        Debemos realizar un seguimiento mínimo de la fecha del pedido, la dirección de envío, los productos y la cantidad solicitada. 
+               
+        "
+
+    Start With the Nouns
+        
+        Customer
+        Productos
+        Ordenes
+        Items de Ordenes
+
+    Define Appropriate Members
+
+        Customer
+            Propiedades: Nombre, email, direccion, direccion del trabajo
+            Metodos: Validar, Recuperar, Guardar.
+
+        Productos
+            Propiedades: NombreProducto, Descripción, Precio actual
+            Metodos: Validar, Recuperar, Guardar.
+        Ordenes
+            Propiedades: Cliente, Fecha de orden, direccion de envio, Producto, cantidad
+            Metodos: Validar, Recuperar, Guardar.
+
+        Items de Ordenes
+            Propiedades: Cliente, Fecha de orden, direccion de envio, precio de comprar.
+            Metodos: Validar, Recuperar, Guardar.
+
+        Pensar en el paso del tiempo:
+            Fechas necesarias para mantener la actualización de los datos.
+
+    Abstracción
+
+        Simplificar la realidad, por ejemplo, no nos importa, en este caso, si un cliente tiene familia, perro, etc.
+        Solo nos importa el nombre, apellido, dirección y mail.
+
+        Eso es abstracción. Ignorar detalles y enfocarse en lo que es importante.
+
+    Encapsulamiento
+
+        Es una tecnica, donde se ocultan o encapsulan datos y los detalles de la implementación.
+
+        Esta información esta oculta en la clase y ningún otro codigo puede tomar esta info (si tiene bien los modificadores de acceso)
+        La información es manipulada a través de los getters y setters.
+        
+        En los getters y setters aparte podemos implementar codigo especifico.
+
+        prop tab tab, ya genera por atras la propiedad privada y la publica con los getters y setters.
+
+
+    Summary
+        Lo que aprendimos en la clases de esta sección.
+
+Building Entity Classes - Part 1
+
+    Introduction
+        Construir entidades, en clases.
+
+    Layering the Application
+        Estructura de la aplicación.
+        Aplicaciones por lo general se dividen en capas:
+            
+            Capa de interfaz de usuario: (Exe)
+                Formularios o paginas mostradas al usuario.
+                Logica de control para elementos de la interfaz de usuario.
+
+            Capa de negocio: (dll)
+                Logica para realizar operaciones del negocio.
+
+            Capa de datos: (dll)
+                Devuelve información de la base de datos.
+                Guarda información.
+                Modifica información.
+
+            Capa de codigo comun: (dll)
+                 (Core.common)
+
+    Building the Business Logic Layer Component
+        
+        nombreDeLaSolucion.BusinessLayer
+            Crea una dll llamada: ACM.BL
+
+    Building a Class: Properties
+
+        1) Crea las clases del negocio.
+    
+            Las clases tiene que tener acceso publico (esto hace que se pueda llamar desde cualquier otro proyecto de la solución o componente externo)
+            Las clases son TIPOS.
+
+        2) Crear las propiedades.
+            Genera los getters y setters con prop tab tab.
+            
+
+        Modificador de acceso: internal.
+            El acceso esta limitado al codigo interno del componete en el que fue definido.
+            O sea, cualquier codigo en la capa de negocios podría tener acceso a la propiedad. Pero no la capa de ui o de data.
+            Como es necesario tener acceso desde otro lado se deja public.
+
+        Snippet: 
+            prop tab tab, genera los getters y setters
+            propg, genera el get y set, pero al set le pone privado. Como a un CustomerId, ya que no debería cambiarse en la app.
+
+    Testing the Class
+
+        Agrega un proyecto Unit.Test para realizar la prueba.
+        Le mete una referencia de la dll del objeto de negocio.
+        Se debe crear una condición valida e invalida.
+
+        En el ejemplo se va a validar el nombre completo.
+
+        Arrange:
+            Donde se crea una instancia de la clase.
+            seteamos información al objeto creado.
+            generamos una variable donde tenemos el string deseado, en este caso.
+
+        Act:
+            Lo que hay que hacer para obtener eso.
+            objeto.nombreCompleto.
+
+        Assert:
+            Donde verificamos que lo que deseamos se igual a lo que tenemos.
+
+    Working With Objects
+
+        La variable donde se guarda esa instancia, hace referencia al objeto creado.
+
+        En vez de usar el tipo también se puede usar var.
+            Define una variable local, que esta fuertemente tipada. Como si se hubiera hecho de la otra manera.
+            Acorta la sintaxis, y se usa donde el tip es obvio, ej:
+                var customer = new Customer();
+
+        Cuando instanciamos un objeto tenemos acceso a las propiedades y metodos.
+        Las propiedades como customerId, no van a aparecer ya que no le podemos setear info.
+
+        Los objetos son de tipo de referencia, por eso si se pisa en otro objeto, ambos tienen la misma info.
+        
+        static 
+            declara una propiedad que es un objeto de clase. No es necesario crear un objeto para acceder. simplemente poniendo Clase.propiedadStatica ya esta.
+
+    Summary
+
+        Resumen de esta sección.
+
+Building Entity Classes - Part 2
+
+    Introduction
+        Introducción sobre esta sección.
+
+    Building a Class: Methods
+        
+        Crea el metodo Validación, donde verifica que ninguno de los dos datos sea invalido.
+        Crea un test nuevo, para validar que el metodo funcione correctamente.
+
+        Crea los metodos de recuperación y guardado.
+            En uno crea una lista de customers, y en el otro solo que retorne true.
+
+    Terms
+        Signature / firma:
+            Su nombre y el tipo de cada parametro, no influye el tipo de retorno.
+            Cada firma debe ser unica, salvo que tenga diferentes parametros. (overloading, sobrecarga)
+
+        Overloading / Sobrecarga:
+            Cuando hay mas de un metodo que tienen el mismo nombre pero diferentes parametros.
+
+         Contrato:
+            Todos los metodos y propiedades definidos, usando el modificador de acceso publico, definieron el contrato de la clase.
+            La clase promete que va a dar las propiedades y metodos necesarios a otro codigo que lo necesite.
+
+            Se puede extender el contrato, agregando propiedades y metodos, pero no debe modificar los existentes, porque rompería la aplicación.
+
+            También se le llama interfaz de clase.    
+
+    Building a Class: Constructors
+
+        Constructor:
+            Es codigo que se ejecuta cada vez que se crea una instancia de la clase.
+            Se definen bajo arriba de las propiedades.
+
+            Snippet:
+                ctor tab tab
+
+            Tiene el mismo nonbre de la clase.
+            Un constructor sin parametros, se llama, constructor por default.
+                No es necesario crearlo si no se necesita o no hay otro constructor con parametros.
+
+            Se utiliza la palabra this, para usar las propiedades de esa instancia en particular.
+
+    Building the Remaining Classes
+
+        Crea las clases Order, OrderItem, Producto
+        
+        Un tipo nuleable se puede escribir así por ej:
+            Decimal?
+
+        
+    Summary
+
+Separating Responsibilities
+   
+    Introduction
+    
+        Separar responsabilidades. 
+        
+        "Separation of Concerns": Principio de separación.
+            Una aplicación debería descomponerse en partes, con el minimo de superposición y cada parte debe ser responsable de una preocupación separada.
+
+        Coupling / acoplamiento:
+            Es el grando en el que las clases dependen una de la otra. Cuantas menos dependencias, mejor porque se va a poder mantener, testear, actualizar, reformar mas facil.
+
+            Las clases que creamos ahora tienen acoplamiento con la capa de datos, así que hay que separar eso en otra clase.
+
+        Cohesión
+            Es la medida de como todo lo relacionado en una clase esta relacionado con el proposito de la clase.
+
+            Si hay propiedades que no tienen nada que ver con nuestra clase, hay que ponerlo en otra.
+                Por ej, se puede separar, dirección de casa y dirección de envio en Direccio (address)
+
+
+        Bajo acoplamiento, hace la clase mas testeable y a que si se hace un cambio no afecte casi a otras clases.
+        Alta cohesión, hace que la clase basicamente este bien conformada, por ende, tampoco va a estar haciendo lio en otro lado.   
+
+    Revisiting the Class Diagram
+        
+        Verifica cada clase, tiene las propiedades que realmente le son necesarias?
+        
+        Separa las propiedades, dirección de trabajo y casa en otra clase nueva "Dirección"
+
+        Por convención las clases que se encargan de recuperar, guardar y demas, se llaman Repository / Repository.
+        
+            En este caso vamos a generar un repositorio para cada clase nombrada y le generamos los metodos correspondientes a cada una:
+                Retrieve()
+                Save()
+
+                CustomerRepository    
+                ProductRepository
+                OrderRepository
+
+        Esto que utilizamos se llama patrón de diseño.
+        
+
+    Building the Address Class
+        Muestra las propiedades que creo para esa clase.
+
+    Building the Repository Classes
+        
+        Crea la clase CustomerRepository
+        Agrega codigo temporario como para hacer que se devolvió info de la base, para no escribir todo el codigo posta que llama a la base de datos.
+
+        Genera una prueba para eso, creando una clase nueva en el unit test.
+            Compara lo que devuelve el repositorio con la info del objeto preseteado
+
+    Summary
+        Resumen de la sección.
+
+
+Establishing Relationships
+
+    Introduction
+        Nos vamos a ocupar de:
+             establecer las relaciones entre clases 
+             tipo de relaciones
+             colaboración
+             composición
+             composición usando referencias
+             composición usando ids
+             herencia.
+        
+        Muestra un ejemplo con el formualario del resumen de pedido
+
+    Defining the Relationships
+        Define la relación entre las clases.
+
+        Order tiene:
+            Item de orden
+            Dirección
+            Cliente
+        
+        Order Item:
+            Product
+
+        Producto:
+            nada
+
+        OrderRepository:
+            Order
+
+        AddressRepository:
+            Address
+        
+        CustomerRepository:
+            Customer
+
+        ProductRepository:
+            Product.
+            
+    Types of Relationships
+
+        Hay 3 tipos de relaciones definidas en OOP:
+
+        1) colaboración, usa un.
+        
+            Una clase, usa a la otra, ej:
+                CustomerRepository, usa un objeto Customer.
+
+        2) Composición, tiene un.
+            Un objeto tiene otro objeto.
+                Por ej: 
+                    Cada orden tiene un cliente, una dirección, un conjunto de articulos de pedido.
+
+        3) Herencia, es una.
+            Por ej:
+                Un cliente de negocio ES UN CLIENTE, idem cliente residencial, etc.
+    
+    Collaboration
+
+        CustomerRepository, AddressRepository, y los otros.
+
+        Usan una clase del tipo especifico para poder obtener o grabar datos de esa clase.
+        O sea, cuando usan una instancia de otra clase para realizar una operación.
+
+    Composition
+
+        O sea, en las propiedades tiene una clase de otro tipo.
+        Por ej:
+            Customer tiene una referencia a Address, en este caso a una lista, ya que puede tener mas de una dirección
+        
+    Composition: References
+
+        * Cuando se utilizan listas, hay que tener cuidado porque se inicializan en nulo, por ende conviene hacer una instancia de la lista en el constructor de la clase.
+            Para hacer esto hacemos que el constructor por defecto llame al constructor sobrecargado.
+
+            public Customer()
+                :this(0)
+            {
+
+            }
+
+            Esto se llama encadenamiento de constructores.
+            
+    Populating the Referenced Objects
+
+        IEnumerable:
+            Es una manera recomendada de devolver una secuencia de datos, porque los resultados son mas flexibles para las personas que llaman metodo.
+                public IEnumerable<Address> RetrieveByCustomerId(int customerId){...}
+
+        Genera metodos para probar esto.
+
+    Composition: Ids
+
+        
+
+    Building the Single Purpose Classes
+    Inheritance
+    Summary
+        Resumen de la sección.
+
+
+Leveraging Reuse
+
+    Introduction
+    Techniques for Leveraging Reuse
+    The .NET Object Class
+    Overriding Base Class Functionality
+    Polymorphism
+    Building a Base Class
+    Summary
+        Resumen de la sección.
+Building Reusable Components
+
+    Introduction
+    Building a Reusable Component
+    Testing the Reusable Component
+    Using the Reusable Component
+    Static Classes
+    Extension Methods
+    Static Method vs. Extension Method
+    Summary
+        Resumen de la sección.
+Understanding Interfaces
+
+    Introduction
+    .NET Interfaces
+    Setting Up the Demo
+    Defining an Interface
+    Implementing an Interface
+    Interface-based Polymorphism
+    Summary
+
+Final Words and Next Steps
+
+    Introduction
+    Summary
+    Next Steps

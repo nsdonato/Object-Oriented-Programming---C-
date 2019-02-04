@@ -536,35 +536,271 @@ Leveraging Reuse
 
     Overriding Base Class Functionality
 
-        
+        Sobreescribimos ToString en la clase producto.
+
+        override es el metodo de acceso para usar esto.
+
+        public override string ToString(){
+            //return base.ToString();
+            return "Nombre de producto: " + productName;
+        }
+
     Polymorphism
+
+        "Many shapes" / muchas formas.
+            Un metodo por ej, puede comportarse de diferentes maneras, según el tipo de clase que lo llame, como hicimos con ToString.
+            
     Building a Base Class
+
+        Creano una clase base:
+            Crea EntityBases
+        
+        Las clases base pueden crearse de 2 maneras:
+            1) Ser una clase abstracta.
+                No se puede crear una instancia de esa clase.
+                Solo esta destinada para ser una clase base para otras clases.
+                Nunca se usa sola.
+
+            2) Ser una clase concreta.
+                Se puede generar instancias de la clase (una clase comun es así.)
+
+        Sealed / sellada:
+            Es una clase que no se puede extender ni heredar de ella.
+            Sirve para que no se puede heredear ni sobreescribir funcionalidades.
+
+        Vamos a crearla abstracta porque solo va a ser una clase base.
+        No vamos a ponerle sealed, porque queremos que hereden de ella.
+
+        Modificadores de acceso:
+            public:
+                Cualquier clase tiene acceso a esa propiedad.
+
+            private:
+                solo la clase base puede tener acceso a la propiedad.
+
+            protected:
+                solo la clase base y las clases derivadas tienen acceso a las propiedades.
+
+        Enum, 
+            se crea como una clase extra, se declara arriba de la clase, así:
+
+            public enum EntityStateOption
+            {
+                Active,
+                Deleted
+            }
+
+        Para heredar desde la clase concreta, la clase base se pone : (dos puntos)
+            public class Product : EntityBases
+
+
+        Los metodos para ser sobreescritos se tienen que firmar como: virtual o abstracta
+            Virtual:
+                Por ejemplo el metodo ToString, tiene su propia implementación en object, pero puede ser sobreescrito.
+
+            Abstract:
+                El metodo no tiene implementación, así que debe ser sobreescrito.
+
+        Override:
+            Se usa para sobreescribir el codigo que estaba marcado como virtual o abstracto.
+
     Summary
         Resumen de la sección.
 
 Building Reusable Components
 
     Introduction
+        Continua la discución de reutilización.
+
+        Componentes:
+            Interfaz de usuario:
+                ACM.WPF
+                ACM.Web
+
+            Capa de negocio
+                ACM.BL
+
+            Capa de acceso a datos
+                ACM.dll
+        
+        Cada componente puede ser reutilizado ya que son proyectos separados y compilados se pueden reutilizar.
+    
+        Va a crear un nuevo componente para reutilizarse:
+            Acme.Common
+                StringHandler
+                LoggingService
+                EmailService
+                ...
+        
     Building a Reusable Component
+        
+        Vamos a modificar el getter de ProductName para modificar el nombre que viene todo junto de una dll de terceros.
+
+        Snippet:
+            propfull tab tab
+
+        Se crea una función separada que se llama desde el getter.
+            Como se puede reutilizar, la sacamos de la clase Product y se pone en un nuevo proyecto common.
+
+
+        Crea Acme.Common
+            Crea la clase StringHandler
+
+            crea el metodo:
+                public string InsertSpaces(string source)
+                {
+                    // recorre cada letra con un foreach, y si es mayuscula le agrega al resultado un espacio. y después la letra.
+                }
+
+
     Testing the Reusable Component
+
+        Crea el test para probar lo que hizo recién.
+
     Using the Reusable Component
+
+        Agrega la referencia de Acme.Common, utiliza el metodo que generó.
+        Para que crear una instancia para usar algo que no va a cambiar?
+
     Static Classes
+
+        Le pone static al modificador de acceso del metodo que se va a reutilizar.
+        Los metodos estaticos se utilizan cuando no es necesario mantener el estado de un apropiedad, en este caso es toda una clase que tiene funcionalidad a reutilizar, nada mas.
+        Hay que poer tanto la clase como el metodo static.
+
     Extension Methods
+
+        Agregar el this, hace que este metodo se agregue como una extensión a la clase String, de todos los objetos.
+            public static class StringHandler{
+                public static string InsertSpaces(this string source)
+            }
+
+        Aunque tanto la clase como el metodo este con el modificador de acceso static, no se llaman mas con nombreClase.metodo sino a la clase que utiliza una propiedad string. 
+
     Static Method vs. Extension Method
+
+        Cuando definir uno y cuando el otro:
+
+        Extensión:
+            ¿Es el parametro primario una instancia?
+            ¿El metodo opera logicamente en esa instancia?
+            ¿Es deseable que el metodo aparezca en IntelliSense para esa instancia?  
+
     Summary
         Resumen de la sección.
+
 Understanding Interfaces
 
     Introduction
-    .NET Interfaces
-    Setting Up the Demo
-    Defining an Interface
-    Implementing an Interface
-    Interface-based Polymorphism
-    Summary
+        Es solo la definición de propiedades y metodos, sin implementación.
 
+        Interfaz implicita:
+            Todo lo que creamos ahora tiene implicitamente una interfaz de clase. 
+        
+        Interfaz explicita:
+            Cuando creas una interfaz directamente, o sea:
+            
+            public interface ILoggable
+                string Log()
+
+            Se puede reutilizar en cualquier clase que requiera esa interfaz.
+            Por ej, si queremos loguear todo lo que se refiere a cliente y a producto, podemos implementar esa interfaz en esas clases.
+        
+    .NET Interfaces
+
+        Tiene varias interfaces incorporadas como:
+            IDisposable
+            IEquatable
+            IComparable
+            INotofyPropertyChanged
+            IEnumerable
+            ...
+        
+        Son como un rol, y podes decidir si implementar o no estas interfaces integradas en una de tu clases, si quiere asumir ese rol o no
+
+    Setting Up the Demo
+
+        Logueo para resolver bugs.
+        Logueo por seguridad.
+        Logueo para analizar datos.
+
+        Crea una clase LoggingService
+            Crea un metodo que acepta un List<Object>
+                Intenta hacer un casteo de customer, pero en acme.common pero no se puede hacer eso porque habría referencia circular.
+
+    Defining an Interface
+
+        Add > Nuevo item > Interface.
+            Por convención arrancan con I, de interface..
+            Ponerle el modificador de acceso public
+            Definir los miembros:
+                agregar propiedades, metodos, eventos o indexadores.
+                No se necesita modificadores de miembros
+                no se necesita implementar los mismos.
+
+        
+    Implementing an Interface
+
+        1) Las interfaces pueden ser mas de una, y van separadas por coma en las clases que la implmenten.
+            public class Customer : EntityBases, ILoggable
+            
+        2) Implementar cada miembro de la interfaz.
+           Los miembros implementados deben ser publicos, no estaticos y tener el mismo nombre y firma que el miembro de la interfaz.
+
+           public string Log(){...}
+
+    Interface-based Polymorphism
+
+        Tenemos polimorfismo con los metodos log por ejemplo, ya que en cada clase se comporta de diferente manera.
+        Interfaces basadas en polimorfismo.
+        
+        Ahora si podemos recorrer la información de log de cada objeto que generamos mediante el metodo Log, porque cambiamos el List<Object> por List<ILoggable>, entonces vamos a tener acceso a 
+            los metodos que tienen esa interfaz.
+
+        Genera el metodo para probar  los logs.
+
+    Summary
+        Resumen de la sección.
+     
 Final Words and Next Steps
 
     Introduction
+        zaraza..
+
     Summary
+        Sumario de todo el curso...
+
+        Identificar clases..
+        Separando responsabilidades..
+        Establecer relaciones...
+        Aprovechar la reutilización.
+
+        Los 4 pilares de OOP.
+        Interfaces, etc..
+
     Next Steps
+
+        Cursos recomendados (en pluralsight):
+
+            Defensive Coding in C#
+                Las técnicas de codificación defensivas lo ayudan a escribir un código excelente y mantenible, incluso cuando se enfrentan a requisitos en constante cambio, problemas heredados, presiones de tiempo intensivas y un entorno en rápida evolución.
+                Las técnicas de codificación defensivas también pueden ayudarlo a mantener ese código excelente después de las actividades de mantenimiento, los desarrolladores múltiples y los estragos del tiempo. 
+
+            Clean Code: Writing Code for Humans
+                El código limpio es un estilo de desarrollo centrado en el lector que produce software que es fácil de escribir, leer y mantener. 
+
+            C# Interfaces
+                Comience con las interfaces C # para ampliar su conocimiento de las interfaces.
+
+            Dependcy Inection On-Ramp
+                Luego, vaya a la rampa de inyección de dependencia para conocer qué es la inyección de dependencia y por qué es importante. 
+
+            SOLID - Principles of Object-Oriented Desing
+                Con las interfaces y los conceptos de inyección de dependencia dominados, está listo para los Principios SÓLIDOS del diseño orientado a objetos.
+
+            Design Patters On-Ramp
+                Si está interesado en obtener más información acerca de los patrones de diseño, continúe con el diseño de patrones en rampa.
+
+            Design Patters 
+                Entonces estás listo para aprovechar al máximo el curso de Patrones de diseño. 
+                
